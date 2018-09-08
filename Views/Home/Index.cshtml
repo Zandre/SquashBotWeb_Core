@@ -1,0 +1,77 @@
+﻿@model SquashBotWebCore.Models.TournamentViewerViewModel.TournamentDashboardVm
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="tournamentDiv">
+    <br />
+    <ul class="nav nav-pills">
+        <li class="active"><a href="#activeTournaments" data-toggle="tab">Active Tournaments</a></li>
+        <li><a href="#upcomingTournaments" data-toggle="tab">Upcoming Tournaments</a></li>
+        <li><a href="#pastTournaments" data-toggle="tab">Past Tournaments</a></li>
+    </ul>
+    <br />
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="activeTournaments">
+            <div class="row">
+                @foreach (var tournament in Model.ActiveTournaments)
+                {
+                    <a asp-controller="Home" asp-action="SectionsDashboard" asp-route-id="@tournament.TournamentId">
+                        <div class="panel panel-primary col-md-3 col-sm-6">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@tournament.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-primary">@Model.FriendlyDateRange(tournament)</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="upcomingTournaments">
+            <div class="row">
+                @foreach (var tournament in Model.UpcomingTournaments)
+                {
+                    <a asp-controller="Home" asp-action="SectionsDashboard" asp-route-id="@tournament.TournamentId">                        
+                        <div class="panel panel-info col-md-3 col-sm-6">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@tournament.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-info">@Model.FriendlyDateRange(tournament)</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+                </div>
+        </div>
+        <div class="tab-pane fade" id="pastTournaments">
+            <div class="row">
+                @foreach (var tournament in Model.PastTournaments)
+                {
+                    <a asp-controller="Home" asp-action="SectionsDashboard" asp-route-id="@tournament.TournamentId">
+                        <div class="panel panel-warning col-md-3 col-sm-6">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@tournament.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-warning">@Model.FriendlyDateRange(tournament)</p>
+                            </div>
+                        </div>
+                    </a>
+                 }
+             </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /*this probably also belong somewhere else...*/
+    .panel {
+        padding: 3px;
+        margin: 5px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>

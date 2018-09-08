@@ -1,0 +1,68 @@
+﻿@model SquashBotWebCore.Models.TournamentAdminViewModels.FixtureIndexVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>@Model.SectionVm.Name @Model.SectionVm.Tournament.SectionType</h2>
+<h4>@Model.SectionVm.Tournament.Name</h4>
+
+
+<div class="form-group">
+    <div>
+        @Html.ActionLink("Add New Fixture", "CreateNewFixture", "Fixtures", new{@sectionId = Model.SectionVm.SectionId}, new { @class = "btn btn-success" })
+    </div>
+</div>
+
+<table id="fixtureGrid" class="table table-striped table-bordered dt-responsive nowrap">
+    <thead>
+    <tr>
+        <th>
+            Date & Time
+        </th>
+        <th>
+            Team A
+        </th>
+        <th>
+            Team B
+        </th>
+
+        <th>
+            Venue
+        </th>
+        <th>
+            Court
+        </th>
+        <th>View Fixture</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var fixtureVm in Model.FixtureVms) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => fixtureVm.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => fixtureVm.TeamA.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => fixtureVm.TeamB.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => fixtureVm.TournamentSquashVenue.SquashVenue.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => fixtureVm.Court)
+            </td>
+            <td>
+                @Html.ActionLink("View Fixture", "SaveFixture", "Fixtures", new{@fixtureId = fixtureVm.FixtureId}, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<script>
+    $('#fixtureGrid').dataTable({
+    });
+</script>

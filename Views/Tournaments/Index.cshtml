@@ -1,0 +1,50 @@
+﻿@using SquashBotWebCore.Models.SquashBot.Classes.TournamentClasses
+@model IEnumerable<SquashBotWebCore.Models.SquashBot.Classes.TournamentClasses.Tournament>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>SquashBot Tournaments</h2>
+
+<table id="tournamentGrid" class="table table-striped table-bordered dt-responsive nowrap">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Edit", new{id = item.TournamentId})
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<p>
+    <a asp-controller="Home" asp-action="Index"  class="btn btn-primary">Back</a>
+    <a asp-action="SaveTournament" class="btn btn-success">Create New Tournament</a>
+</p>
+
+<script>
+    $('#tournamentGrid').dataTable({
+    });
+</script>
+

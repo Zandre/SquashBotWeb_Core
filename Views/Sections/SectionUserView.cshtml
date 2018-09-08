@@ -1,0 +1,78 @@
+﻿@model SquashBotWebCore.Models.TournamentViewerViewModel.SectionUserViewVm
+
+<h2>@(Model.Tournament.SectionType + "s")</h2>
+<h4>@Model.Tournament.Name</h4>
+@Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-primary" })
+<br/>
+<br/>
+@if (Model.MensSections.Count > 0)
+{
+    <div class="row well well-lg">
+        <h3>@("Mens " + Model.Tournament.SectionType)</h3>
+        @foreach (var mensSection in Model.MensSections)
+        {
+            <a asp-controller="Sections" asp-action="LogAndFixtures" asp-route-id="@mensSection.SectionId">
+                <div class="panel panel-primary col-md-3 col-sm-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@(mensSection.Section.Name + " " + Model.Tournament.SectionType)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-primary">@mensSection.Teams.Count Teams</p>
+                        <p class="text-primary">@mensSection.Fixtures.Count Fixtures</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@if (Model.WomensSections.Count > 0)
+{
+    <div class="row well well-lg">
+        <h3>@("Womens " + Model.Tournament.SectionType)</h3>
+        @foreach (var womensSection in Model.WomensSections)
+        {
+            <a asp-controller="Sections" asp-action="LogAndFixtures" asp-route-id="@womensSection.SectionId">
+                <div class="panel panel-danger col-md-3 col-sm-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@(womensSection.Section.Name + " " + Model.Tournament.SectionType)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-danger">@womensSection.Teams.Count Teams</p>
+                        <p class="text-danger">@womensSection.Fixtures.Count Fixtures</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@if (Model.MixedSections.Count > 0)
+{
+    <div class="row well well-lg">
+        <h3>@("Mixed " + @Model.Tournament.SectionType)</h3>
+        @foreach (var mixedSection in Model.MixedSections)
+        {
+            <a asp-controller="Sections" asp-action="LogAndFixtures" asp-route-id="@mixedSection.SectionId">
+                <div class="panel panel-info col-md-3 col-sm-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@(mixedSection.Section.Name + " " + Model.Tournament.SectionType)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-info">@mixedSection.Teams.Count Teams</p>
+                        <p class="text-info">@mixedSection.Fixtures.Count Fixtures</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+<style>
+    /*this probably also belong somewhere else...*/
+    .panel {
+        padding: 3px;
+        margin: 5px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>

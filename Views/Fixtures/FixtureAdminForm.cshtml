@@ -1,0 +1,55 @@
+﻿@model SquashBotWebCore.Models.TournamentAdminViewModels.FixtureVm
+
+@{
+    ViewData["Title"] = "SaveFixture";
+}
+
+<h2>Fixture</h2>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SaveFixture">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FixtureId" />
+            <input type="hidden" asp-for="SectionId" />
+            <div class="form-group">
+                <label asp-for="TeamAId" class="control-label"></label>
+                @*zb I'm sure there's a newer flashier way to do this type of thing*@
+                @Html.DropDownListFor(x => x.TeamAId, new SelectList(Model.AvailableTeams, "TeamId", "Name"), "Select Team", new { @class = "form-control" })
+                <span asp-validation-for="TeamAId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamBId" class="control-label"></label>
+                @Html.DropDownListFor(x => x.TeamBId, new SelectList(Model.AvailableTeams, "TeamId", "Name"), "Select Team", new { @class = "form-control" })
+                <span asp-validation-for="TeamBId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentSquashVenueId" class="control-label"></label>
+                @Html.DropDownListFor(x => x.TournamentSquashVenueId, new SelectList(Model.AvailableVenues, "TournamentSquashVenueId", "SquashVenue.Name"), "Select Venue", new { @class = "form-control" })
+                <span asp-validation-for="TournamentSquashVenueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Court" class="control-label"></label>                
+                @Html.DropDownListFor(x => x.Court, new SelectList(Enumerable.Range(1, 25).ToList()), "Select Court", new { @class = "form-control" })
+                <span asp-validation-for="Court" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.ActionLink("Back", "Index", "Fixtures", new { sectionId = Model.SectionId }, new { @class = "btn btn-primary" })
+                <input type="submit" value="Save Fixture" class="btn btn-success" />
+                @if (!Model.IsNew)
+                {@Html.ActionLink("Delete Fixture", "Delete", new { id = Model.FixtureId }, new { @class = "btn btn-danger" })}
+            </div>
+            <div class="form-group">
+                @Html.ActionLink("Add Venue", "Index", "TournamentSquashVenues", new { tournamentId = Model.Section.TournamentId }, new { @class = "btn btn-info" })
+            </div>
+        </form>
+    </div>
+</div>
+

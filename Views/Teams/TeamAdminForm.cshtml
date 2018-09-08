@@ -1,0 +1,33 @@
+﻿@model SquashBotWebCore.Models.TournamentAdminViewModels.TeamVm
+
+@{
+    ViewData["Title"] = "SaveTeam";
+}
+
+<h4>@Model.Section.Tournament.Name</h4>
+<h4>@(Model.Section.Name + " " + Model.Section.Tournament.SectionType)</h4>
+<h2>@(Model.IsNew ? "SaveSquashVenue Team" : Model.Name)</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SaveTeam">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TeamId" />
+            <input type="hidden" asp-for="SectionId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.ActionLink("Back", "Edit", "Sections", new { id = Model.SectionId }, new { @class = "btn btn-primary" })
+                <input type="submit" value="@(Model.IsNew ? "Edit Team" : "Save Team")" class="btn btn-success" />
+                @if(!Model.IsNew){ @Html.ActionLink("Delete Team", "Delete", new { id = Model.TeamId }, new { @class = "btn btn-danger" })}
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
